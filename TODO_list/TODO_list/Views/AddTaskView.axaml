@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TODO_list.Views.AddTaskView">
+    <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Task Description" Margin="0,0,10,0" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TaskDescription}" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Category" Margin="0,0,10,0" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TaskDescription}" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Difficulty" Margin="0,0,10,0" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TaskDescription}" />
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Deadline" Margin="0,0,10,0" VerticalAlignment="Center"/>
+        <DatePicker Grid.Row="3" Grid.Column="1"/>
+        <Button ></Button>
+                
+    </Grid>
+</UserControl>

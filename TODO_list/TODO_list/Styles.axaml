@@ -1,0 +1,19 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+    <Style Selector="Button.add-icon">
+        <Setter Property="Foreground" Value="Black"></Setter>
+    </Style>
+    <Style Selector="TextBlock.success-icon">
+        <Setter Property="Foreground" Value="Green"></Setter>
+    </Style>
+    <Style Selector="TextBlock.delete-icon">
+        <Setter Property="Foreground" Value="Red"></Setter>
+    </Style>
+</Styles>

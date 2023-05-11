@@ -1,0 +1,81 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:TODO_list.Views"
+        x:Class="TODO_list.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Width="800" Height="400"
+        Title="Avalonia Todo"
+        >
+        <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        <StackPanel>
+            <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="_File">
+                        <MenuItem Header="_Open..." />
+                        <Separator />
+                        <MenuItem Header="_Exit" />
+                    </MenuItem>
+                    <MenuItem Header="_Edit">
+                        <MenuItem Header="Copy" />
+                        <MenuItem Header="Paste" />
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+
+            <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto" HorizontalAlignment="Left"
+                  Margin="10,4,0,4">
+                <Grid.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                    </Style>
+                </Grid.Styles>
+                <Button Margin="0,0,5,0" Padding="0"  Grid.Row="0" Grid.Column="0" Command="{Binding AddTaskCommand}" CommandParameter="{Binding $parent[Window]}">
+                    <Grid ColumnDefinitions="Auto,Auto">
+                        <Image Source="{SvgImage /Assets/success-mark.svg}" />
+                        <TextBlock  Text="Complete" Grid.Column="1"></TextBlock>
+                    </Grid>
+                    
+                </Button>
+                <Button Margin="0,0,25,0" Padding="0"  Grid.Row="0" Grid.Column="1" Command="{Binding err}">
+                    <Grid ColumnDefinitions="Auto,Auto">
+                        <Image Source="{SvgImage /Assets/cross.svg}" />
+                        <TextBlock  Text="Delete" Grid.Column="1"></TextBlock>
+                    </Grid>
+                </Button>
+                <Button Classes="add-icon" Padding="0"  Grid.Row="0" Grid.Column="2">
+                    <Grid ColumnDefinitions="Auto,Auto">
+                        <Image Source="{SvgImage /Assets/add-icon.svg}" />
+                        <TextBlock Text="{Binding Show }" Grid.Column="1"></TextBlock>
+                    </Grid>
+
+                </Button>
+                
+                <Button Classes="add-icon" Padding="0"  Grid.Row="1" Grid.Column="0" IsVisible="{Binding Show }">
+                    <Grid ColumnDefinitions="Auto,Auto">
+                        <Image Source="{SvgImage /Assets/add-icon.svg}" />
+                        <TextBlock Text="{Binding Show }" Grid.Column="1"></TextBlock>
+                    </Grid>
+
+                </Button>
+            </Grid>
+            <ItemsControl Items="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Margin="4"
+                                  IsChecked="{Binding IsChecked}"
+                                  Content="{Binding Description}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Panel>
+</Window>
