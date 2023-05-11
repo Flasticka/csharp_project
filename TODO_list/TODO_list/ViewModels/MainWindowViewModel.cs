@@ -17,28 +17,23 @@ namespace TODO_list.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    [Reactive]
-    public bool Show { get; set; }
     public ICommand AddTaskCommand { get; }
     private IUnitOfWork _unitOfWork;
 
-    //public Interaction<TodoListViewModel, AddTaskViewModel?> ShowDialog { get; }
-
-    public Interaction<AddTaskViewModel, OOTaskWiewModel?> ShowDialog { get; }
+    public Interaction<TodoListViewModel, AddTaskViewModel?> ShowDialog { get; }
     public MainWindowViewModel(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         Items = new ObservableCollection<UserTask>(unitOfWork.UserTaskRepository.GetMultiple());
-        ShowDialog = new Interaction<AddTaskViewModel, OOTaskWiewModel?>();
+        ShowDialog = new Interaction<TodoListViewModel, AddTaskViewModel?>();
 
         AddTaskCommand = ReactiveCommand.CreateFromTask(async (MainWindow mainWindow) =>
         {   
             _unitOfWork.UserTaskRepository.Create(new UserTask() { Description = "efe", Category = "effe", Deadline = DateTime.Now, Difficulty = 5});
             _unitOfWork.Commit();
-            var store = new AddTaskViewModel();
-            
-            //Items = new ObservableCollection<UserTask>(unitOfWork.UserTaskRepository.GetMultiple());
-            var result = await ShowDialog.Handle(store);
+            var todoList = new TodoListViewModel(unitOfWork);
+            Items = new ObservableCollection<UserTask>(unitOfWork.UserTaskRepository.GetMultiple());
+            var result = await ShowDialog.Handle(todoList);
         });
 
     }

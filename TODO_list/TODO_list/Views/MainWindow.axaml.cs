@@ -15,12 +15,12 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
         this.WhenActivated(d => d(ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync)));
         
     }
-    private async Task DoShowDialogAsync(InteractionContext<AddTaskViewModel, OOTaskWiewModel?> interaction)
+    private async Task DoShowDialogAsync(InteractionContext<TodoListViewModel, AddTaskViewModel?> interaction)
     {
        var dialog = new TodoListWindow();
        dialog.DataContext = interaction.Input;
 
-        var result = await dialog.ShowDialog<OOTaskWiewModel?>(this);
+        var result = await dialog.ShowDialog<AddTaskViewModel?>(this);
         interaction.SetOutput(result);
     }
 }
