@@ -24,6 +24,7 @@
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.18" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
         <PackageReference Include="Avalonia.Svg.Skia" Version="0.10.18" />
+        <PackageReference Include="Dialogs.Avalonia" Version="0.1.29" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />

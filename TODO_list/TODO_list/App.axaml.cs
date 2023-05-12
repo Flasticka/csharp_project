@@ -14,7 +14,9 @@ public partial class App : Application
     {
         AvaloniaXamlLoader.Load(this);
         using var db = new TodoListContext(Config.config);
+        
         db.Database.EnsureCreated();
+        
     }
 
     public override void OnFrameworkInitializationCompleted()

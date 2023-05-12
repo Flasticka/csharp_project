@@ -7,13 +7,8 @@
     </Design.PreviewWith>
 
     <!-- Add Styles Here -->
-    <Style Selector="Button.add-icon">
-        <Setter Property="Foreground" Value="Black"></Setter>
-    </Style>
-    <Style Selector="TextBlock.success-icon">
-        <Setter Property="Foreground" Value="Green"></Setter>
-    </Style>
-    <Style Selector="TextBlock.delete-icon">
-        <Setter Property="Foreground" Value="Red"></Setter>
+    <Style Selector="Button.menu-button">
+        <Setter Property="Width" Value="30"></Setter>
+        <Setter Property="Height" Value="30"></Setter>
     </Style>
 </Styles>

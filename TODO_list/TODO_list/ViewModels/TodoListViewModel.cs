@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,12 +15,5 @@ namespace TODO_list.ViewModels;
 
 public class TodoListViewModel : ViewModelBase
 {
-    
-   
-    public TodoListViewModel(IUnitOfWork unitOfWork)
-    {
-       
-        
-    }
 
 }

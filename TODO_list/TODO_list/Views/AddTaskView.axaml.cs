@@ -10,7 +10,6 @@ public partial class AddTaskView : UserControl
     public AddTaskView()
     {
         InitializeComponent();
-        DataContext = new AddTaskViewModel();
     }
 
     private void InitializeComponent()

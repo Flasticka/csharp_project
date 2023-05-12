@@ -4,16 +4,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TODO_list.Views.AddTaskView">
-    <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Task Description" Margin="0,0,10,0" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TaskDescription}" />
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Category" Margin="0,0,10,0" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TaskDescription}" />
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Difficulty" Margin="0,0,10,0" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TaskDescription}" />
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Deadline" Margin="0,0,10,0" VerticalAlignment="Center"/>
-        <DatePicker Grid.Row="3" Grid.Column="1"/>
-        <Button ></Button>
-                
-    </Grid>
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        <Border Padding="30" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+            <Grid RowDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Margin="0,0,0,20"  Grid.Row="0" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+                <TextBlock Foreground="White" Grid.Row="0" Grid.Column="0" Text="Task Description" Margin="0,0,10,0"
+                           VerticalAlignment="Center" />
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TaskDescription}" />
+                <TextBlock Foreground="White" Grid.Row="1" Grid.Column="0" Text="Category" Margin="0,0,10,0"
+                           VerticalAlignment="Center" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TaskCategory}" />
+                <TextBlock Foreground="White" Grid.Row="2" Grid.Column="0" Text="Difficulty" Margin="0,0,10,0"
+                           VerticalAlignment="Center" />
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TaskDifficulty}" />
+                <TextBlock Foreground="White" Grid.Row="3" Grid.Column="0" Text="Deadline" Margin="0,0,10,0"
+                           VerticalAlignment="Center" />
+                <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding TaskDeadline}" />
+
+            </Grid>
+            <Button HorizontalAlignment="Center" Foreground="White" Grid.Row="1" Command="{Binding SubmitDialog}">click</Button>
+        </Grid>
+        </Border>
+    </Panel>
+
 </UserControl>

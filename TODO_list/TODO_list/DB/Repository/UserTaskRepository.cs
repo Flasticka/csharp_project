@@ -30,7 +30,6 @@ public class UserTaskRepository : IUserTakRepository
 
     public IEnumerable<UserTask> GetMultiple(Expression<Func<UserTask, bool>>? filter = null)
     {
-        //return new List<UserTask>() { new UserTask() { Description = "efe" }, new UserTask() { Description = "egeege" } };
         if (filter != null)
         {
             return DbSet.Where(filter);

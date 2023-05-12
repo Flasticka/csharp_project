@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="400"
+             xmlns:local="using:TODO_list.Views"
+             xmlns:models="clr-namespace:TODO_list.DB.Models"
              x:Class="TODO_list.Views.TodoListView">
     
     <Panel>
@@ -17,19 +19,18 @@
         </ExperimentalAcrylicBorder>
         <StackPanel>
             <DockPanel>
-                <Menu DockPanel.Dock="Top">
-                    <MenuItem Header="_File">
+                <Menu  DockPanel.Dock="Top">
+                    <MenuItem Foreground="White" Header="_File">
                         <MenuItem Header="_Open..." />
                         <Separator />
                         <MenuItem Header="_Exit" />
                     </MenuItem>
-                    <MenuItem Header="_Edit">
+                    <MenuItem Foreground="White" Header="_Edit">
                         <MenuItem Header="Copy" />
                         <MenuItem Header="Paste" />
                     </MenuItem>
                 </Menu>
             </DockPanel>
-
             <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto" HorizontalAlignment="Left"
                   Margin="10,4,0,4">
                 <Grid.Styles>
@@ -37,44 +38,41 @@
                         <Setter Property="Background" Value="Transparent"></Setter>
                     </Style>
                 </Grid.Styles>
-                <Button Margin="0,0,5,0" Padding="0"  Grid.Row="0" Grid.Column="0" Command="{Binding AddTaskCommand}" CommandParameter="{Binding $parent[Window]}">
+                <Button Classes="menu-button" Margin="0,0,5,0" Padding="0"  Grid.Row="0" Grid.Column="0" Command="{Binding AddTaskCommand}">
                     <Grid ColumnDefinitions="Auto,Auto">
                         <Image Source="{SvgImage /Assets/success-mark.svg}" />
-                        <TextBlock  Text="Complete" Grid.Column="1"></TextBlock>
                     </Grid>
-                    
                 </Button>
-                <Button Margin="0,0,25,0" Padding="0"  Grid.Row="0" Grid.Column="1" Command="{Binding err}">
+                <Button Classes="menu-button" IsEnabled="{Binding EnableDelete}"  Margin="0,0,25,0" Padding="0"  Grid.Row="0" Grid.Column="1" Command="{Binding DeleteTaskCommand}">
                     <Grid ColumnDefinitions="Auto,Auto">
                         <Image Source="{SvgImage /Assets/cross.svg}" />
-                        <TextBlock  Text="Delete" Grid.Column="1"></TextBlock>
                     </Grid>
                 </Button>
-                <Button Classes="add-icon" Padding="0"  Grid.Row="0" Grid.Column="2">
+                <Button Classes="menu-button" Foreground="White" Padding="0" Command="{Binding AddTaskCommand}" Grid.Row="0" Grid.Column="2">
                     <Grid ColumnDefinitions="Auto,Auto">
                         <Image Source="{SvgImage /Assets/add-icon.svg}" />
-                        <TextBlock Text="{Binding Show }" Grid.Column="1"></TextBlock>
                     </Grid>
-
-                </Button>
-                
-                <Button Classes="add-icon" Padding="0"  Grid.Row="1" Grid.Column="0" IsVisible="{Binding Show }">
-                    <Grid ColumnDefinitions="Auto,Auto">
-                        <Image Source="{SvgImage /Assets/add-icon.svg}" />
-                        <TextBlock Text="{Binding Show }" Grid.Column="1"></TextBlock>
-                    </Grid>
-
                 </Button>
             </Grid>
-            <ItemsControl Items="{Binding Items}">
-                <ItemsControl.ItemTemplate>
+            <TextBox  Text="{Binding NameFilter}"></TextBox>
+            <TextBox  Text="{Binding CategoryFilter}"></TextBox>
+            <ListBox Margin="0 40 0 0" Items="{Binding Items}" SelectedItem="{Binding SelectedUserTask}">
+                <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox Margin="4"
-                                  IsChecked="{Binding IsChecked}"
-                                  Content="{Binding Description}"/>
+                        <local:UserTaskView Margin="0 0 20 20" />
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListBox.ItemTemplate>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                       <Button IsEnabled="{Binding EnableDelete}"  Margin="0,0,25,0" Padding="0"  Grid.Row="0" Grid.Column="1" Command="{Binding DeleteTaskCommand}">
+                           <Grid ColumnDefinitions="Auto,Auto">
+                               <Image Source="{SvgImage /Assets/cross.svg}" />
+                               <TextBlock  Text="Delete" Grid.Column="1"></TextBlock>
+                           </Grid>
+                       </Button>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
         </StackPanel>
     </Panel>
    
