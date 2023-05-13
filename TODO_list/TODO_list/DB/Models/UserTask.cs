@@ -11,5 +11,6 @@ public class UserTask
     public string Description { get; set; }
     public Difficulty Difficulty { get; set; }
     public DateTime Deadline { get; set; }
+    public TaskStatus Status { get; set; }
     
 }

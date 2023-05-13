@@ -12,5 +12,5 @@ public interface IUserTakRepository
     IEnumerable<UserTask> GetMultiple(
         Expression<Func<UserTask, bool>>? filter = null);
     void Delete(int id);
-
+    void MarkAsComplete(int id);
 }

@@ -20,5 +20,13 @@ public class TodoListContext : DbContext
         options.UseSqlite(Configuration.GetConnectionString("DatabaseConnectionString"));
     }
     public DbSet<UserTask> UserTasks => Set<UserTask>();
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<UserTask>()
+            .Property(b => b.Status)
+            .HasDefaultValue(TaskStatus.Incomplete);
+        
+    }
+
 
 }

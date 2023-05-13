@@ -49,4 +49,17 @@ public class UserTaskRepository : IUserTakRepository
         DbSet.Remove(entity);
 
     }
+
+    public void MarkAsComplete(int id)
+    {   
+        var entity = DbSet.Find(id);
+
+        if (entity == null)
+        {
+            return;
+        }
+
+        entity.Status = TaskStatus.Complete;
+        DbSet.Update(entity);
+    }
 }

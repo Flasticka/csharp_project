@@ -19,6 +19,8 @@ public class UserTaskViewModel
     public string UserTaskCategory => _userTask.Category;
     public Difficulty UserTaskDifficulty => _userTask.Difficulty;
     public string DifficultyColor => DifficultyToColorConverter.ConvertToString(_userTask.Difficulty);
+    public TaskStatus UserStatus => _userTask.Status;
+    public string StatusColor => StatusToColorConverter.ConvertToString(_userTask.Status);
     public String UserTaskDeadline => _userTask.Deadline.ToString("dd.MM.yyyy");
 
 }

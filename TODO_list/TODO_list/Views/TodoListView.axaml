@@ -21,13 +21,12 @@
             <DockPanel>
                 <Menu  DockPanel.Dock="Top">
                     <MenuItem Foreground="White" Header="_File">
-                        <MenuItem Header="_Open..." />
+                        <MenuItem Header="_AddTask" Command="{Binding AddTaskCommand }" />
                         <Separator />
-                        <MenuItem Header="_Exit" />
+                        <MenuItem Header="_Exit" Command="{Binding ExitAppCommand}"/>
                     </MenuItem>
-                    <MenuItem Foreground="White" Header="_Edit">
-                        <MenuItem Header="Copy" />
-                        <MenuItem Header="Paste" />
+                    <MenuItem Foreground="White" Header="_Help">
+                        <MenuItem Header="JEBAITED" />
                     </MenuItem>
                 </Menu>
             </DockPanel>
@@ -38,7 +37,7 @@
                         <Setter Property="Background" Value="Transparent"></Setter>
                     </Style>
                 </Grid.Styles>
-                <Button Classes="menu-button" Margin="0,0,5,0" Padding="0"  Grid.Row="0" Grid.Column="0" Command="{Binding AddTaskCommand}">
+                <Button Classes="menu-button" IsEnabled="{Binding EnableComplete}" Margin="0,0,5,0" Padding="0"  Grid.Row="0" Grid.Column="0" Command="{Binding MarkCompletedCommand}">
                     <Grid ColumnDefinitions="Auto,Auto">
                         <Image Source="{SvgImage /Assets/success-mark.svg}" />
                     </Grid>
@@ -54,14 +53,42 @@
                     </Grid>
                 </Button>
             </Grid>
-            <TextBox  Text="{Binding NameFilter}"></TextBox>
-            <TextBox  Text="{Binding CategoryFilter}"></TextBox>
             <Panel Margin="30 40 30 0">
-                <Grid  ColumnDefinitions="50*,20*,15*,15*" VerticalAlignment="Center">
+                <Grid  ColumnDefinitions="16*,16*,16*,16*,16*,16*" VerticalAlignment="Center">
+                    <Grid Margin="0,0,10,0" Grid.Column="0" RowDefinitions="Auto,Auto">
+                        <TextBlock Margin="0,0,0,10" HorizontalAlignment="Left" Foreground="White" Grid.Row="0" Text="Description"/>
+                        <TextBox Grid.Row="1"  Text="{Binding NameFilter}"></TextBox>
+                    </Grid>
+                    <Grid Margin="0,0,10,0" Grid.Column="1" RowDefinitions="Auto,Auto">
+                        <TextBlock Margin="0,0,0,10" HorizontalAlignment="Left" Foreground="White" Grid.Row="0" Text="Category"/>
+                        <TextBox Grid.Row="1"  Text="{Binding CategoryFilter}"></TextBox>
+                    </Grid>
+                    <Grid Margin="0,0,10,0" Grid.Column="2" RowDefinitions="Auto,Auto">
+                        <TextBlock Margin="0,0,0,10" Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Row="0" Text="Difficulty"/>
+                        <ComboBox  x:Name="difficultyComboBox" Grid.Row="1" SelectedItem="{Binding DifficultyFilter}"/>
+                    </Grid>
+                    <Grid Margin="0,0,10,0" Grid.Column="3" RowDefinitions="Auto,Auto">
+                        <TextBlock Margin="0,0,0,10" Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Row="0" Text="Deadline From"/>
+                        <TextBox Grid.Row="1"  Text="{Binding CategoryFilter}"></TextBox>
+                    </Grid>
+                    <Grid Margin="0,0,10,0" Grid.Column="4" RowDefinitions="Auto,Auto">
+                        <TextBlock Margin="0,0,0,10" Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Row="0" Text="Deadline To"/>
+                        <TextBox Grid.Row="1"  Text="{Binding CategoryFilter}"></TextBox>
+                    </Grid>
+                    <Grid  Grid.Column="5" RowDefinitions="Auto,Auto">
+                        <TextBlock Margin="0,0,0,10" Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Row="0" Text="Status"/>
+                        <ComboBox  x:Name="statusComboBox" Grid.Row="1" SelectedItem="{Binding StatusFilter}"/>
+                    </Grid>
+                </Grid>
+            </Panel>
+            
+            <Panel Margin="30 40 30 0">
+                <Grid  ColumnDefinitions="47*,17*,12*,12*,12*" VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Left" Foreground="White" Grid.Column="0" Text="Description"/>
                     <TextBlock Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Column="1" Text="Category"/>
                     <TextBlock Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Column="2" Text="Difficulty"/>
                     <TextBlock Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Column="3" Text="Deadline"/>
+                    <TextBlock Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Column="4" Text="Status"/>
                 </Grid>
             </Panel>
             
@@ -73,12 +100,8 @@
                 </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>
                     <ContextMenu>
-                       <Button IsEnabled="{Binding EnableDelete}"  Margin="0,0,25,0" Padding="0"  Grid.Row="0" Grid.Column="1" Command="{Binding DeleteTaskCommand}">
-                           <Grid ColumnDefinitions="Auto,Auto">
-                               <Image Source="{SvgImage /Assets/cross.svg}" />
-                               <TextBlock  Text="Delete" Grid.Column="1"></TextBlock>
-                           </Grid>
-                       </Button>
+                        <MenuItem IsEnabled="{Binding EnableDelete}" Command="{Binding DeleteTaskCommand}" Header="Delete"></MenuItem>
+                        <MenuItem IsEnabled="{Binding EnableComplete}" Command="{Binding MarkCompletedCommand}" Header="Mark as Complete"></MenuItem>
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>
