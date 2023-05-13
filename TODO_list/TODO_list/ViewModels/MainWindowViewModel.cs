@@ -97,7 +97,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         return Task.Run(() =>
         {
-            Items = new ObservableCollection<UserTaskViewModel>(_unitOfWork.UserTaskRepository.GetMultiple((task => task.Description.Contains(NameFilter) && task.Category.Contains(CategoryFilter))).Select( item => new UserTaskViewModel(item)));
+            Items = new ObservableCollection<UserTaskViewModel>(_unitOfWork.UserTaskRepository.GetMultiple((task => task.Description.Contains(NameFilter) )).Select( item => new UserTaskViewModel(item)));
         });
     }
     

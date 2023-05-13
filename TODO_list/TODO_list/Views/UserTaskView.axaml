@@ -5,10 +5,11 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TODO_list.Views.UserTaskView">
     <Panel>
-        <Grid RowDefinitions="Auto,Auto">
-            <TextBlock Grid.Row="0" Text="{Binding UserTaskDescription}"/>
-            <TextBlock Grid.Row="1" Text="{Binding UserTaskCategory}"/>
+        <Grid ColumnDefinitions="50*,20*,15*,15*" VerticalAlignment="Center">
+            <TextBlock Foreground="White" Grid.Column="0" Text="{Binding UserTaskDescription}"/>
+            <TextBlock Classes="table-style" Foreground="White" Grid.Column="1" Text="{Binding UserTaskCategory}"/>
+            <TextBlock Classes="table-style" Foreground="{Binding DifficultyColor}" Grid.Column="2" Text="{Binding UserTaskDifficulty}"/>
+            <TextBlock Classes="table-style" Foreground="White" Grid.Column="3" Text="{Binding UserTaskDeadline}"/>
         </Grid>
-        
     </Panel>
 </UserControl>

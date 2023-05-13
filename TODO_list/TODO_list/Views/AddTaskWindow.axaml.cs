@@ -13,7 +13,7 @@ namespace TODO_list.Views;
 public partial class AddTaskWindow : ReactiveWindow<AddTaskViewModel>
 {
     public AddTaskWindow()
-    {
+    {   
         InitializeComponent();
         this.WhenActivated(disposables =>
         {
@@ -24,6 +24,7 @@ public partial class AddTaskWindow : ReactiveWindow<AddTaskViewModel>
                 }))
                 .DisposeWith(disposables);
         });
+        
 #if DEBUG
         this.AttachDevTools();
 #endif

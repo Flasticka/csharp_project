@@ -32,7 +32,7 @@
                 </Menu>
             </DockPanel>
             <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto" HorizontalAlignment="Left"
-                  Margin="10,4,0,4">
+                  Margin="20,4,0,4">
                 <Grid.Styles>
                     <Style Selector="Button">
                         <Setter Property="Background" Value="Transparent"></Setter>
@@ -56,10 +56,19 @@
             </Grid>
             <TextBox  Text="{Binding NameFilter}"></TextBox>
             <TextBox  Text="{Binding CategoryFilter}"></TextBox>
-            <ListBox Margin="0 40 0 0" Items="{Binding Items}" SelectedItem="{Binding SelectedUserTask}">
+            <Panel Margin="30 40 30 0">
+                <Grid  ColumnDefinitions="50*,20*,15*,15*" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Left" Foreground="White" Grid.Column="0" Text="Description"/>
+                    <TextBlock Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Column="1" Text="Category"/>
+                    <TextBlock Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Column="2" Text="Difficulty"/>
+                    <TextBlock Classes="table-style" HorizontalAlignment="Left" Foreground="White" Grid.Column="3" Text="Deadline"/>
+                </Grid>
+            </Panel>
+            
+            <ListBox Background="Black" Margin="20 10 20 0" Items="{Binding Items}" SelectedItem="{Binding SelectedUserTask}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <local:UserTaskView Margin="0 0 20 20" />
+                        <local:UserTaskView Margin="0 0 0 10" Height="40" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>

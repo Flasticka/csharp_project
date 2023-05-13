@@ -20,5 +20,5 @@ public class TodoListContext : DbContext
         options.UseSqlite(Configuration.GetConnectionString("DatabaseConnectionString"));
     }
     public DbSet<UserTask> UserTasks => Set<UserTask>();
-    
+
 }

@@ -6,5 +6,5 @@ namespace TODO_list.DB.UnitOfWork;
 public interface IUnitOfWork: IDisposable
 {
     public IUserTakRepository UserTaskRepository { get; }
-    void Commit();
+   void Commit();
 }

@@ -11,7 +11,6 @@ public interface IUserTakRepository
     UserTask? GetOne(int id);
     IEnumerable<UserTask> GetMultiple(
         Expression<Func<UserTask, bool>>? filter = null);
-
     void Delete(int id);
 
 }

@@ -20,6 +20,7 @@ public class UnitOfWork : IUnitOfWork
     }
 
     public IUserTakRepository UserTaskRepository { get; }
+    
     public void Commit()
     {
         _dbContext.SaveChanges();

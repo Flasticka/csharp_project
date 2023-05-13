@@ -14,24 +14,36 @@
                     MaterialOpacity="0.65" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
-        <Border Padding="30" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+        <Panel.Styles>
+            <Style Selector="Button.submit-button">
+                    <Setter Property="Background" Value="Black" />
+                    <Setter Property="Foreground" Value="White" />
+                </Style>
+                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="White" />
+                </Style>
+        </Panel.Styles>
+        <Border Padding="10" BorderBrush="White" BorderThickness="1">
             <Grid RowDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Margin="0,0,0,20"  Grid.Row="0" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
-                <TextBlock Foreground="White" Grid.Row="0" Grid.Column="0" Text="Task Description" Margin="0,0,10,0"
+                <TextBlock  Foreground="White" Grid.Row="0" Grid.Column="0" Text="Task Description" Margin="0,0,10,0"
                            VerticalAlignment="Center" />
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TaskDescription}" />
+                <TextBox Width="300" Background="White" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Text="{Binding TaskDescription}" />
                 <TextBlock Foreground="White" Grid.Row="1" Grid.Column="0" Text="Category" Margin="0,0,10,0"
                            VerticalAlignment="Center" />
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TaskCategory}" />
+                <TextBox Width="300" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="1" Text="{Binding TaskCategory}" />
                 <TextBlock Foreground="White" Grid.Row="2" Grid.Column="0" Text="Difficulty" Margin="0,0,10,0"
                            VerticalAlignment="Center" />
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TaskDifficulty}" />
+                <ComboBox Background="White"  Width="150" x:Name="difficultyComboBox" Grid.Row="2" Grid.Column="1" SelectedItem="{Binding TaskDifficulty}"/>
+          
                 <TextBlock Foreground="White" Grid.Row="3" Grid.Column="0" Text="Deadline" Margin="0,0,10,0"
                            VerticalAlignment="Center" />
-                <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding TaskDeadline}" />
+                <DatePicker Background="White" Grid.Row="3" Grid.Column="1" SelectedDate="{Binding TaskDeadline}" />
 
             </Grid>
-            <Button HorizontalAlignment="Center" Foreground="White" Grid.Row="1" Command="{Binding SubmitDialog}">click</Button>
+                
+            <Button Classes="submit-button" Content="Add Task" HorizontalAlignment="Center" Grid.Row="1" Command="{Binding SubmitDialog}">
+            </Button>
         </Grid>
         </Border>
     </Panel>
