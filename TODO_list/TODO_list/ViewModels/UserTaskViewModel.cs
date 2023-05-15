@@ -22,5 +22,6 @@ public class UserTaskViewModel
     public TaskStatus UserStatus => _userTask.Status;
     public string StatusColor => StatusToColorConverter.ConvertToString(_userTask.Status);
     public String UserTaskDeadline => _userTask.Deadline.ToString("dd.MM.yyyy");
+    public string DeadlineColor => DateToColorConverter.ConvertToString(_userTask.Deadline);
 
 }

@@ -17,18 +17,20 @@ public partial class TodoListView : UserControl
     {
         InitializeComponent();
         var difficultyComboBox = this.Find<ComboBox>("difficultyComboBox");
-        var values = Enum.GetValues(typeof(Difficulty))
+        var difficultyValues = Enum.GetValues(typeof(Difficulty))
             .Cast<Difficulty>()
             .Select(v => v.ToString())
             .ToList();
-        values.Add(null);
-        difficultyComboBox.Items = values;
+        difficultyValues.Add(string.Empty);
+        difficultyComboBox.Items = difficultyValues;
         difficultyComboBox.SelectedIndex = 0;
         var statusComboBox = this.Find<ComboBox>("statusComboBox");
-        statusComboBox.Items = Enum.GetValues(typeof(TaskStatus))
+        var statusValues = Enum.GetValues(typeof(TaskStatus))
             .Cast<TaskStatus>()
             .Select(v => v.ToString())
             .ToList();
+        statusValues.Add(string.Empty);
+        statusComboBox.Items = statusValues;
         statusComboBox.SelectedIndex = 0;
     }
 

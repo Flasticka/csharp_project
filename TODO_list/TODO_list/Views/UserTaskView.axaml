@@ -9,7 +9,7 @@
             <TextBlock Foreground="White" Grid.Column="0" Text="{Binding UserTaskDescription}"/>
             <TextBlock Classes="table-style" Foreground="White" Grid.Column="1" Text="{Binding UserTaskCategory}"/>
             <TextBlock Classes="table-style" Foreground="{Binding DifficultyColor}" Grid.Column="2" Text="{Binding UserTaskDifficulty}"/>
-            <TextBlock Classes="table-style" Foreground="White" Grid.Column="3" Text="{Binding UserTaskDeadline}"/>
+            <TextBlock Classes="table-style" Foreground="{Binding DeadlineColor}" Grid.Column="3" Text="{Binding UserTaskDeadline}"/>
             <TextBlock Classes="table-style" Foreground="{Binding StatusColor}" Grid.Column="4" Text="{Binding UserStatus}"/>
         </Grid>
     </Panel>

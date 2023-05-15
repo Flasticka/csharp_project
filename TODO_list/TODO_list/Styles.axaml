@@ -19,4 +19,11 @@
     <Style Selector="TextBlock.table-style">
         <Setter Property="Padding" Value="15 0 0 0"></Setter>
     </Style>
+    <Style Selector="Button.submit-button">
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    <Style Selector="Button.submit-button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="White" />
+    </Style>
 </Styles>

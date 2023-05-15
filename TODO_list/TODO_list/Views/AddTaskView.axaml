@@ -14,15 +14,6 @@
                     MaterialOpacity="0.65" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
-        <Panel.Styles>
-            <Style Selector="Button.submit-button">
-                    <Setter Property="Background" Value="Black" />
-                    <Setter Property="Foreground" Value="White" />
-                </Style>
-                <Style Selector="Button:pointerover /template/ ContentPresenter">
-                    <Setter Property="Background" Value="White" />
-                </Style>
-        </Panel.Styles>
         <Border Padding="10" BorderBrush="White" BorderThickness="1">
             <Grid RowDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Margin="0,0,0,20"  Grid.Row="0" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
@@ -42,7 +33,7 @@
 
             </Grid>
                 
-            <Button Classes="submit-button" Content="Add Task" HorizontalAlignment="Center" Grid.Row="1" Command="{Binding SubmitDialog}">
+            <Button Classes="submit-button" IsEnabled="{Binding AllFilled}" Content="Add Task" HorizontalAlignment="Center" Grid.Row="1" Command="{Binding SubmitDialog}">
             </Button>
         </Grid>
         </Border>

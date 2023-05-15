@@ -27,11 +27,14 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand DeleteTaskCommand { get; }
     public ICommand MarkCompletedCommand { get; }
     public ICommand ExitAppCommand { get; }
+    public ICommand ResetFilterCommand { get; }
 
     private IUnitOfWork _unitOfWork;
     private UserTaskViewModel? _selectedUserTask;
     private string _nameFilter = "";
     private string _categoryFilter = "";
+    private string? _fromFilter;
+    private string? _toFilter;
     private Difficulty? _difficultyFilter;
     private TaskStatus? _statusFilter;
     public Interaction<AddTaskViewModel, UserTask?> ShowDialog { get; }
@@ -58,17 +61,43 @@ public class MainWindowViewModel : ViewModelBase
         get => _categoryFilter;
         set => this.RaiseAndSetIfChanged(ref _categoryFilter, value);
     }
-
-    public Difficulty? DifficultyFilter
+    public string? FromFilter
     {
-        get => _difficultyFilter;
-        set => this.RaiseAndSetIfChanged(ref _difficultyFilter, value);
+        get => _fromFilter;
+        set => this.RaiseAndSetIfChanged(ref _fromFilter, value);
+    }
+    public string? ToFilter
+    {
+        get => _toFilter;
+        set => this.RaiseAndSetIfChanged(ref _toFilter, value);
     }
 
-    public TaskStatus? StatusFilter
+    public string? DifficultyFilter
     {
-        get => _statusFilter;
-        set => this.RaiseAndSetIfChanged(ref _statusFilter, value);
+        get => _difficultyFilter.ToString();
+        set
+        {
+            Difficulty? dificulty = null;
+            if (value != "")
+            {
+                dificulty = (Difficulty)Enum.Parse(typeof(Difficulty), value);
+            }
+            this.RaiseAndSetIfChanged(ref _difficultyFilter, dificulty);
+        }
+    }
+
+    public string? StatusFilter
+    {
+        get => _statusFilter.ToString();
+        set
+        {   
+            TaskStatus? taskStatus = null;
+            if (value != "")
+            {
+                taskStatus = (TaskStatus)Enum.Parse(typeof(TaskStatus), value);
+            }
+            this.RaiseAndSetIfChanged(ref _statusFilter, taskStatus);
+        }
     }
 
     public ReactiveCommand<Unit, Task> FilterCommand { get; }
@@ -78,13 +107,16 @@ public class MainWindowViewModel : ViewModelBase
         this.WhenAnyValue(x => x.NameFilter, 
                 x => x.CategoryFilter, 
                 x => x.DifficultyFilter,
-                x => x.StatusFilter)
+                x => x.StatusFilter,
+                x => x.FromFilter,
+                x => x.ToFilter,
+                x => x.Initilized
+                )
             .Throttle(TimeSpan.FromMilliseconds(400))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe((_) => UpdateUserTasks());
         _unitOfWork = unitOfWork;
-        Items = new ObservableCollection<UserTaskViewModel>(unitOfWork.UserTaskRepository.GetMultiple()
-            .Select(item => new UserTaskViewModel(item)));
+        UpdateUserTasks();
         ShowDialog = new Interaction<AddTaskViewModel, UserTask?>();
 
         AddTaskCommand = ReactiveCommand.CreateFromTask(async () =>
@@ -123,21 +155,52 @@ public class MainWindowViewModel : ViewModelBase
 
             await UpdateUserTasks();
         });
+        ResetFilterCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            NameFilter = "";
+            CategoryFilter = "";
+            DifficultyFilter = "";
+            FromFilter = null;
+            ToFilter = null;
+            StatusFilter = "";
+        });
     }
 
     [Reactive] public ObservableCollection<UserTaskViewModel> Items { get; set; }
     [Reactive] public bool EnableDelete { get; set; }
     [Reactive] public bool EnableComplete { get; set; }
+    [Reactive] public bool Initilized { get; set; }
 
     private Task UpdateUserTasks()
     {
         return Task.Run(() =>
         {
             Items = new ObservableCollection<UserTaskViewModel>(_unitOfWork.UserTaskRepository
-                .GetMultiple((task) => task.Description.Contains(NameFilter) && task.Category.Contains(CategoryFilter) &&
-                                       (DifficultyFilter == null || task.Difficulty.Equals(DifficultyFilter)) &&
-                                       (StatusFilter == null || task.Status.Equals(StatusFilter)))
-                .Select(item => new UserTaskViewModel(item)));
+                .GetMultiple((task) => task.Description.Contains(_nameFilter) && task.Category.Contains(_categoryFilter) &&
+                                       (_fromFilter == null || task.Deadline >= DateTime.Parse(_fromFilter)) &&
+                                       (_toFilter == null || task.Deadline <= DateTime.Parse(_toFilter)) &&
+                                       (_difficultyFilter == null || task.Difficulty.Equals(_difficultyFilter)) &&
+                                       (_statusFilter== null || task.Status.Equals(_statusFilter)))
+                .Select(item => new
+                {
+                    UserTaks = item,
+                    TaskPriority = ComputeTaskPriority(item),
+                }).OrderByDescending(arg => arg.TaskPriority )
+                .Select(item => new UserTaskViewModel(item.UserTaks)));
         });
+    }
+
+    private double ComputeTaskPriority(UserTask userTask)
+    {
+        if (userTask.Status == TaskStatus.Complete)
+        {
+            return 0;
+        }
+
+        if (userTask.Deadline <= DateTime.Today)
+        {
+            return (double)userTask.Difficulty + (((DateTime.Today - userTask.Deadline).Days + 1)* ((double)Difficulty.Harder + 1));
+        }
+        return (double)userTask.Difficulty / (userTask.Deadline - DateTime.Today).Days;
     }
 }

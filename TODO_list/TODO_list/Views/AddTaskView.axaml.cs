@@ -18,7 +18,7 @@ public partial class AddTaskView : UserControl
             .Cast<Difficulty>()
             .Select(v => v.ToString())
             .ToList();
-        difficultyComboBox.SelectedIndex = 0;
+        difficultyComboBox.SelectedItem = Difficulty.Easier;
     }
 
     private void InitializeComponent()
