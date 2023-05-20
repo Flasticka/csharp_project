@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using TODO_list.DB.Enums;
 using TODO_list.DB.Models;
 
 namespace TODO_list.DB.Repository;
 
 public class UserTaskRepository : IUserTakRepository
-{   
+{
     private readonly TodoListContext _context;
 
     public UserTaskRepository(TodoListContext context)
@@ -34,6 +35,7 @@ public class UserTaskRepository : IUserTakRepository
         {
             return DbSet.Where(filter);
         }
+
         return DbSet;
     }
 
@@ -47,11 +49,10 @@ public class UserTaskRepository : IUserTakRepository
         }
 
         DbSet.Remove(entity);
-
     }
 
     public void MarkAsComplete(int id)
-    {   
+    {
         var entity = DbSet.Find(id);
 
         if (entity == null)

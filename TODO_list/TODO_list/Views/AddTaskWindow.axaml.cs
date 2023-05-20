@@ -1,6 +1,5 @@
 using System.Reactive;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Mixins;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
@@ -13,18 +12,15 @@ namespace TODO_list.Views;
 public partial class AddTaskWindow : ReactiveWindow<AddTaskViewModel>
 {
     public AddTaskWindow()
-    {   
+    {
         InitializeComponent();
         this.WhenActivated(disposables =>
         {
             ViewModel!.SubmitDialog
-                .Subscribe(Observer.Create<UserTask?>(task =>
-                {   
-                    Close(task);
-                }))
+                .Subscribe(Observer.Create<UserTask?>(Close))
                 .DisposeWith(disposables);
         });
-        
+
 #if DEBUG
         this.AttachDevTools();
 #endif

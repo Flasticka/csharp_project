@@ -9,8 +9,10 @@ public interface IUserTakRepository
 {
     void Create(UserTask entity);
     UserTask? GetOne(int id);
+
     IEnumerable<UserTask> GetMultiple(
         Expression<Func<UserTask, bool>>? filter = null);
+
     void Delete(int id);
     void MarkAsComplete(int id);
 }

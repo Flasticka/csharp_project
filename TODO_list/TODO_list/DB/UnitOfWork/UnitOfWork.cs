@@ -1,16 +1,14 @@
-using Microsoft.Extensions.Configuration;
-
 using TODO_list.DB.Repository;
 
 namespace TODO_list.DB.UnitOfWork;
 
 public class UnitOfWork : IUnitOfWork
-{   
+{
     private readonly TodoListContext _dbContext;
+
     public UnitOfWork()
     {
-        
-        _dbContext = new TodoListContext( Config.config);
+        _dbContext = new TodoListContext(Config.PathConfig);
         UserTaskRepository = new UserTaskRepository(_dbContext);
     }
 
@@ -20,7 +18,7 @@ public class UnitOfWork : IUnitOfWork
     }
 
     public IUserTakRepository UserTaskRepository { get; }
-    
+
     public void Commit()
     {
         _dbContext.SaveChanges();

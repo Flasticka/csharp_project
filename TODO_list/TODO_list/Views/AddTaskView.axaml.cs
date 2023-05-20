@@ -3,6 +3,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using TODO_list.DB.Enums;
 using TODO_list.DB.Models;
 using TODO_list.ViewModels;
 
@@ -13,12 +14,12 @@ public partial class AddTaskView : UserControl
     public AddTaskView()
     {
         InitializeComponent();
-        var difficultyComboBox = this.Find<ComboBox>("difficultyComboBox");
-        difficultyComboBox.Items = Enum.GetValues(typeof(Difficulty))
+        var comboBoxDifficulty = this.Find<ComboBox>("difficultyComboBox");
+        comboBoxDifficulty.Items = Enum.GetValues(typeof(Difficulty))
             .Cast<Difficulty>()
             .Select(v => v.ToString())
             .ToList();
-        difficultyComboBox.SelectedItem = Difficulty.Easier;
+        comboBoxDifficulty.SelectedItem = Difficulty.Easier;
     }
 
     private void InitializeComponent()

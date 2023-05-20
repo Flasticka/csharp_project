@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive;
 using ReactiveUI;
 using TODO_list.DB.Models;
-using TODO_list.DB.UnitOfWork;
-using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Avalonia.Controls;
-using Avalonia.Media;
 using ReactiveUI.Fody.Helpers;
+using TODO_list.DB.Enums;
 
 namespace TODO_list.ViewModels;
 
@@ -21,7 +15,6 @@ public class AddTaskViewModel : ViewModelBase
     private string _taskCategory = "";
     private Difficulty _taskDifficulty = Difficulty.Easier;
     private string? _taskDeadline;
-
 
 
     [Reactive] public bool AllFilled { get; set; }
@@ -38,12 +31,13 @@ public class AddTaskViewModel : ViewModelBase
         get => _taskDifficulty.ToString();
         set
         {
-            Difficulty dificulty = Difficulty.Easier;
+            Difficulty difficulty = Difficulty.Easier;
             if (value != "")
             {
-                dificulty = (Difficulty)Enum.Parse(typeof(Difficulty), value);
+                difficulty = (Difficulty)Enum.Parse(typeof(Difficulty), value);
             }
-            this.RaiseAndSetIfChanged(ref _taskDifficulty, dificulty);
+
+            this.RaiseAndSetIfChanged(ref _taskDifficulty, difficulty);
         }
     }
 
@@ -53,34 +47,30 @@ public class AddTaskViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _taskCategory, value);
     }
 
-    public string TaskDeadline
+    public string? TaskDeadline
     {
         get => _taskDeadline;
         set => this.RaiseAndSetIfChanged(ref _taskDeadline, value);
     }
 
     public AddTaskViewModel()
-    {   
-        this.WhenAnyValue(x => x.TaskDescription, 
-                x => x.TaskCategory, 
+    {
+        this.WhenAnyValue(x => x.TaskDescription,
+                x => x.TaskCategory,
                 x => x.TaskDeadline,
                 x => x.TaskDifficulty)
             .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe(async (_) => await UpdateFilled());
-        SubmitDialog= ReactiveCommand.CreateFromTask(async () =>
+        SubmitDialog = ReactiveCommand.CreateFromTask(async () => await Task.Run(() => new UserTask()
         {
-            return new UserTask()
-            {
-                Description = _taskDescription, Category = _taskCategory, Deadline = DateTime.Parse(_taskDeadline),
-                Difficulty = _taskDifficulty
-            };
-        });
+            Description = _taskDescription, Category = _taskCategory,
+            Deadline = _taskDeadline != null ? DateTime.Parse(_taskDeadline) : DateTime.Today,
+            Difficulty = _taskDifficulty
+        }));
     }
-    private Task UpdateFilled()
+
+    private async Task UpdateFilled()
     {
-        return Task.Run(() =>
-        {   
-            AllFilled = TaskDescription != "" && TaskCategory != "" && TaskDeadline != null;
-        });
+        await Task.Run(() => { AllFilled = TaskDescription != "" && TaskCategory != "" && TaskDeadline != null; });
     }
 }
